@@ -1,4 +1,6 @@
-const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+//get viewer width
+const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);  
+//on scroll for non-mobile screens
 window.onscroll = function () {
   var currentScrollPos = window.pageYOffset;
 
@@ -6,7 +8,7 @@ window.onscroll = function () {
     document.getElementsByClassName("nav")[0].style.top = "-100px";
   } else {
     document.getElementsByClassName("nav")[0].style.top = "0";
-  }
+  } 
 };
 [...document.getElementsByClassName("mobile-nav-screen")[0].children].forEach((element) => {
   element.addEventListener("click", function () {
@@ -14,7 +16,16 @@ window.onscroll = function () {
   });
 });
 
-//canvas stuff
+//canvas stuff 
+var ctx;
+var dashLen;
+var dashOffset;
+var speed;
+var txt;
+var x;
+var y;
+var i;
+var fontSize;
 function setCanvasUp() {
   (ctx = document.querySelector("canvas").getContext("2d")),
     (dashLen = 350),
@@ -41,16 +52,7 @@ function setCanvasUp() {
   ctx.strokeStyle = ctx.fillStyle = "#fff";
   ctx.lineCap = "round";
   ctx.textAlign = "left";
-}
-var ctx;
-var dashLen;
-var dashOffset;
-var speed;
-var txt;
-var x;
-var y;
-var i;
-var fontSize;
+} 
 
 function loop() {
   if (txt[i] !== undefined) {
@@ -113,7 +115,8 @@ window.onresize = function () {
     setCanvasUp();
     setTimeout(requestAnimationFrame(loop), 1000);
   }, 1000);
-};
+}; 
+
 //Youtube API Stuff
 //var lianoChannelID = "UCqI8paXTIWivf5Fs3j_Uhxg"
 var filters = document.getElementById("video-filters");
