@@ -120,7 +120,8 @@ select {
 }
 .mobile-nav {
   display: block;
-  position: fixed;
+  position: fixed; 
+  z-index:3;
 }
 .mobileNav-toggler {
   display: flex;
@@ -136,23 +137,24 @@ select {
   justify-content: center;
   align-items: center;
   user-select: none;
-  transition: background-color 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+  transition: background-color 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);  
 }
 .mobile-nav > input {
   height: 40px;
   position: absolute;
   cursor: pointer;
   opacity: 0;
-  z-index: 2;
   width: 40px;
   top: 20px;
-  left: 20px;
+  left: 20px;   
+   z-index:3;
+  
 }
-.mobileNav-toggler > span {
+.mobileNav-toggler > span {  
+  z-index:3;
   width: 29px;
   height: 2px;
   background-color: #f2f2f2;
-  z-index: 1;
   position: relative;
   display: block;
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
@@ -169,7 +171,8 @@ input:checked ~ .mobileNav-toggler {
 input:checked ~ .mobileNav-toggler > span {
   opacity: 1;
   transform: rotate(45deg) translate(-5px, -4px);
-  background: #36383f;
+  background: #36383f; 
+  
 }
 input:checked ~ .mobileNav-toggler > span:nth-last-child(3) {
   opacity: 0;
@@ -192,7 +195,7 @@ input:checked ~ .mobileNav-toggler > span:nth-last-child(2) {
   flex-direction: column;
   align-items: center;
   font-size: 2.25em;
-  gap: max(30px, 5vh);
+  gap: max(30px, 5vh); 
 }
 input:checked ~ .mobile-nav-screen {
   left: 0;
@@ -428,7 +431,8 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
 }
 #video-filters > span[status="selected"] {
   color: #b3a7a7;
-  transform: scale(1.15);
+  transform: scale(1.15); 
+  
 } 
 
 @media screen and (min-width: 625px) {
