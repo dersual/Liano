@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Open+Sans:wght@300;500;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://kit.fontawesome.com/eb633b28da.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <script src="script.js" defer></script>
+    <div class="home-nav">
+      <a href="#home">Home</a>
+      <a href="#about-me">About Me</a>
+      <a href="#music">Music</a>
+    </div>
+    <div class="nav">
+      <a href="#home">Home</a>
+      <a href="#about-me">About Me</a>
+      <a href="#music">Music</a>
+    </div>
+    <div class="mobile-nav">
+      <input type="checkbox" />
+      <div class="mobileNav-toggler">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="mobile-nav-screen">
+        <a href="#home">Home</a>
+        <a href="#about-me">About Me</a>
+        <a href="#music">Music</a>
+      </div>
+    </div>
+
+    <div class="site">
+      <div id="home" class="home">
+        <div>
+          <img class="LianoPic" alt="LianoPic" src="Images/LianoPic.jpg" />
+          <div>
+            <a
+              href="https://www.youtube.com/channel/UCqI8paXTIWivf5Fs3j_Uhxg"
+              class="social-buttons"
+              ><i class="fa-brands fa-youtube fa-vw"></i
+            ></a>
+            <a href="https://www.instagram.com/liano_music/" class="social-buttons"
+              ><i class="fa-brands fa-instagram fa-vw"></i
+            ></a>
+          </div>
+        </div>
+        <div>
+          <p>
+            Everywhere I go, I hear the words of music. So I write them down in my diary. <br />
+            <span class="end-quote"
+              >-<img class="LianoName" alt="Liano" src="Images/LianoName.png" />
+            </span>
+          </p>
+        </div>
+      </div>
+      <div id="about-me" class="about-me">
+        <div>
+          <div>
+            <h1>Who Is Liano?</h1>
+            <p>
+              <canvas ... id="heyo">
+                <!---   <div>HEYO</div>-->
+              </canvas>
+              , I am Liano. I am a music composer on Youtube. I play the piano (which I absolutely
+              love) and the trumpet.
+            </p>
+            <p>
+              My first album, "Capture That Feeling," was made to explore the emotions I felt
+              playing music. I had spent hours at night improvising stuff that could move me. I
+              wanted to integrate this sort of magic within something that could be given to others.
+              The heavy use of piano throughout the album stemmed from my love for the piano.
+            </p>
+            <p>
+              Although I enjoyed the process of making piano songs, I actually got kinda bored. It's
+              hard to work with just one instrument ha. I decided to get into the process of making
+              orchestral pieces. My two orchestrations "tulips" and "Avri" are the beginning of a
+              new era for my music. But even now, I still have that urge to drive emotions and
+              feeling into what I write. Storytelling is also playing a role (there's going to be a
+              lot of that).
+            </p>
+            <p>
+              The greatest gift for me is to move others with music, just like music has moved me.
+            </p>
+          </div>
+          <div>
+            <img src="Images/MusicNotes.png" />
+          </div>
+        </div>
+      </div>
+      <div id="music" class="music">
+        <div>
+          <h1>Music</h1>
+          <div id="video-filters">
+            <div>
+              <img src="Images/filter-icon.png" />
+            </div>
+            <span>Most Recent</span>
+            <span>Most Popular</span>
+            <div>
+              <input id="queriesInput" placeholder="#" type="number" value="5" min="1" />
+            </div>
+          </div>
+        </div>
+        <div id="videosContainer"> 
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
