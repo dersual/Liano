@@ -9,6 +9,10 @@
             "request": "launch",
             "name": "Open index.html",
             "file": "${workspaceFolder}/index.html"
-        }
+        }, 
+        {"type": "chrome",
+        "request": "launch",
+        "name": "Open index.html in vscode.dev",
+        "file": "${workspaceFolder}/index.html"}
     ]
 }

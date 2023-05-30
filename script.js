@@ -120,63 +120,85 @@ window.onresize = function () {
 //Youtube API Stuff
 //var lianoChannelID = "UCqI8paXTIWivf5Fs3j_Uhxg"
 var filters = document.getElementById("video-filters");
-var inputQueries = document.getElementById("queriesInput");
-var youtubeAPIKEY = "AIzaSyD0qU8w-eyrp9yhvVDlqPKS4EFNoOtJDas";
-var playListID = "PLgcOOHWxAGNBACwDmwtyYX9ViVtlFucgG";
-var maxResults = "";
-var totalVideos;
+var inputQueries = document.getElementById("queriesInput"); 
+let totalVideos; 
+let maxResults = "";  
+let musicList;
 //Most Recent Videos  https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCqI8paXTIWivf5Fs3j_Uhxg&maxResults=5&order=date&key=AIzaSyD0qU8w-eyrp9yhvVDlqPKS4EFNoOtJDas
-var musicList;
-getYoutubeVideos();
-function getYoutubeVideos() {
-  fetch(
-    "https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" +
-      playListID +
-      "&key=" +
-      youtubeAPIKEY +
-      maxResults
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      totalVideos = data.pageInfo.totalResults;
-      maxResults = "&maxResults=" + totalVideos;
-      musicList = data.items;
-      checkAllVideos();
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
-function checkAllVideos() {
+ 
+
+filters.children[1].setAttribute("status", "selected");
+filters.children[2].setAttribute("status", "not-selected");
+
+Array(...filters.children).forEach((span) => {
+  span.addEventListener("click", function () {
+    if (Array(...filters.children).indexOf(span) == 1) {
+      filters.children[1].setAttribute("status", "selected");
+      filters.children[2].setAttribute("status", "not-selected"); 
+
+    } else if (Array(...filters.children).indexOf(span) == 2) {
+      filters.children[1].setAttribute("status", "not-selected");
+      filters.children[2].setAttribute("status", "selected"); 
+
+    }
+  });
+}); 
+
+await getYoutubeVideos(); 
+
+async function getYoutubeVideos() { 
+  try {
+  const data = await getYoutubeAPI() 
+  totalVideos = data.pageInfo.totalResults;
+  maxResults = "&maxResults=" + totalVideos;
+  musicList = data.items;
+  checkAllVideos();
+  } catch (error) {
+    console.error("Error: ", error)
+  }
+} 
+//chekc if some videos are not present
+async function checkAllVideos() {
   if (musicList.length !== totalVideos) {
-    getYoutubeVideos();
+    await getYoutubeVideos();
   } else {
     var allVideoID = "";
     for (var i in musicList) {
       allVideoID += "&id=" + musicList[i].snippet.resourceId.videoId;
+    }  
+    try {
+      const response = await fetch(
+        "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cstatistics" +
+          allVideoID +
+          "&key=" +
+          youtubeAPIKEY +
+          maxResults
+      ); 
+      const data = await response.json(); 
+      musicList = data.items;
+      inputQueries.max = musicList.length;
+    } catch (error) {
+      console.error("Error: ", error)
     }
-    fetch(
-      "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cstatistics" +
-        allVideoID +
-        "&key=" +
-        youtubeAPIKEY +
-        maxResults
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        musicList = data.items;
-        inputQueries.max = musicList.length;
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
   }
 }
 //make universal API call function
-function getAPI(type, videoList, key, allResults, funct) {
-  fetch();
+async function getYoutubeAPI() { 
+  try {
+var youtubeAPIKEY = "AIzaSyD0qU8w-eyrp9yhvVDlqPKS4EFNoOtJDas";
+var playListID = "PLgcOOHWxAGNBACwDmwtyYX9ViVtlFucgG";  
+const response = await fetch(
+  "https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" +
+    playListID +
+    "&key=" +
+    youtubeAPIKEY +
+    maxResults)
+const data = await response.json(); 
+return data;  
+  } catch (error) {
+    throw new Error(error)
+  }
 }
-//getYoutubeVideos()
 function orderByDate() {
   var datesList = [];
   var mostRecent = [];
@@ -212,26 +234,19 @@ function orderByPopularity() {
 function displayingVids(quantity, orderType) {
   var indicesOfVids = orderType;
   for (var i = 0; i < quantity + 1; i++) {
-    var iframe = document.createElement("iframe");
-    document.getElementById("videosContainer").appendChild(iframe);
-    var vidId = musicList[indicesOfVids[i]].id;
+    const template = document.querySelector(".template_VideoFormat");  
+    const videoSlide = template.content.cloneNode(true).children[0];  
+    let title = videoSlide.querySelector(".video_title");   
+    let description = videoSlide.querySelector(".description");  
+    let video = videoSlide.querySelector(".video")
+    let iframe = document.createElement("iframe"); 
+    video.appendChild(iframe);
+    var vidId = musicList[indicesOfVids[i]].id; 
+    title.textContent = musicList[indicesOfVids[i]].snippet.title;  
+    description = musicList[indicesOfVids[i]].snippet.description; 
     iframe.width = "640";
     iframe.height = "360";
     iframe.type = "text/html";
-    iframe.src = "https://www.youtube.com/embed/" + vidId + "?rel=0";
+    iframe.src = "https://www.youtube.com/embed/" + vidId + "?rel=0";  
   }
 }
-filters.children[1].setAttribute("status", "selected");
-filters.children[2].setAttribute("status", "not-selected");
-
-Array(...filters.children).forEach((span) => {
-  span.addEventListener("click", function () {
-    if (Array(...filters.children).indexOf(span) == 1) {
-      filters.children[1].setAttribute("status", "selected");
-      filters.children[2].setAttribute("status", "not-selected");
-    } else if (Array(...filters.children).indexOf(span) == 2) {
-      filters.children[1].setAttribute("status", "not-selected");
-      filters.children[2].setAttribute("status", "selected");
-    }
-  });
-});
