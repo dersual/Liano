@@ -349,7 +349,8 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
   font-family: "Open Sans", sans-serif;
   flex-direction: column;
   padding-left: 10px;
-  padding-right: 10px;
+  padding-right: 10px; 
+  padding-bottom: 5vw;
 }
 .music > div:first-child {
   display: flex;
@@ -438,13 +439,19 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
   align-items: center;
   justify-content: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; 
+  overflow:auto;  
+  padding-left:5%; 
+  padding-right:5%; 
+} 
+.video_container > * { 
+  overflow: inherit
 }
 .video_container > h1 {
   width: 100%;
   font-family: "Open Sans", sans-serif;
   font-weight: 800;
-  text-align: center;
+  text-align: center; 
 }
 .video_container > .description,
 .video_container > .video {
