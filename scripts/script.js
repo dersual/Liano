@@ -1,3 +1,6 @@
+//Only for development, delete after website is completed. 
+alert("Hi, this website is still in development. Please visit it later." + 
+" Development will probably be done by mid-June"); 
 //get viewer width
 const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 //on scroll for non-mobile screens
