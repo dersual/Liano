@@ -6,7 +6,7 @@
     <title></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,8 +18,9 @@
       href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap"
       rel="stylesheet"
     /> 
-    <link rel="stylesheet" href="/path/to/flickity.css" media="screen">
-    <script src="https://kit.fontawesome.com/eb633b28da.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles/flickity.css">
+    <script src="https://kit.fontawesome.com/eb633b28da.js" crossorigin="anonymous"></script> 
+    <script src="scripts/flickity.pkgd.min.js"></script>
   </head>
   <body>
     <div class="home-nav">
@@ -119,9 +120,9 @@
           </div>
         </div> 
         
-        <div id="videosContainer main-gallery"  data-flickity-options='{ "cellAlign": "left", "contain": true }'>   
+        <div id="videosContainer" class = "main-gallery"  data-flickity-options='{ "cellAlign": "left", "contain": true }'>   
           <template class = "template_VideoFormat">       
-            <div class = "video_container gallery-cell">
+            <div class = "video_container">
             <h1 class = "video_title"></h1>
             <div class = "description"></div>
             <div class = "video"></div> 
@@ -130,7 +131,6 @@
         </div>
       </div>
     </div> 
-    <script src="script.js" defer></script> 
-    <script src="/path/to/flickity.pkgd.min.js"></script>
+    <script src="scripts/script.js" defer></script> 
   </body>
 </html>

@@ -19,8 +19,8 @@ body {
   font-family: "Cedarville Cursive", cursive, Arial, Helvetica, sans-serif, monospace,
     "Times New Roman", "Open Sans", sans-serif, "Kalam", cursive;
   min-width: 100%;
-  min-height: 100vh; 
-  overflow-x:hidden;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 a:not([class]) {
   text-decoration-skip-ink: auto;
@@ -92,7 +92,7 @@ select {
   height: 100px;
 }
 .nav {
-  background-image: url("Images/kiwihug-zGZYQQVmXw0-unsplash.jpg");
+  background-image: url("/Images/kiwihug-zGZYQQVmXw0-unsplash.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -120,8 +120,8 @@ select {
 }
 .mobile-nav {
   display: block;
-  position: fixed; 
-  z-index:3;
+  position: fixed;
+  z-index: 3;
 }
 .mobileNav-toggler {
   display: flex;
@@ -137,7 +137,7 @@ select {
   justify-content: center;
   align-items: center;
   user-select: none;
-  transition: background-color 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);  
+  transition: background-color 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
 }
 .mobile-nav > input {
   height: 40px;
@@ -146,12 +146,11 @@ select {
   opacity: 0;
   width: 40px;
   top: 20px;
-  left: 20px;   
-   z-index:3;
-  
+  left: 20px;
+  z-index: 3;
 }
-.mobileNav-toggler > span {  
-  z-index:3;
+.mobileNav-toggler > span {
+  z-index: 3;
   width: 29px;
   height: 2px;
   background-color: #f2f2f2;
@@ -171,8 +170,7 @@ input:checked ~ .mobileNav-toggler {
 input:checked ~ .mobileNav-toggler > span {
   opacity: 1;
   transform: rotate(45deg) translate(-5px, -4px);
-  background: #36383f; 
-  
+  background: #36383f;
 }
 input:checked ~ .mobileNav-toggler > span:nth-last-child(3) {
   opacity: 0;
@@ -195,7 +193,7 @@ input:checked ~ .mobileNav-toggler > span:nth-last-child(2) {
   flex-direction: column;
   align-items: center;
   font-size: 2.25em;
-  gap: max(30px, 5vh); 
+  gap: max(30px, 5vh);
 }
 input:checked ~ .mobile-nav-screen {
   left: 0;
@@ -218,7 +216,7 @@ input:checked ~ .mobile-nav-screen {
   display: flex;
 }
 .home {
-  background-image: url("Images/kiwihug-zGZYQQVmXw0-unsplash.jpg");
+  background-image: url("/Images/kiwihug-zGZYQQVmXw0-unsplash.jpg");
   flex-direction: row-reverse;
   flex-wrap: wrap;
   align-content: center;
@@ -297,7 +295,7 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
   /*background: rgb(22, 31, 45); 
   background: linear-gradient(141deg, rgba(22, 31, 45, 1) 0%, #9da1a4 100%); */
   box-shadow: inset 0 0 0 2000px rgba(22, 31, 45, 0.5);
-  background-image: url("Images/LawrenceAboutME.jpg");
+  background-image: url("/Images/LawrenceAboutME.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   color: #f2f2f2;
@@ -347,8 +345,7 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
   margin-bottom: 0px;
 }
 .music {
-  height: 500px;
-  background-image: url("Images/kiwihug-zGZYQQVmXw0-unsplash.jpg");
+  background-image: url("/Images/kiwihug-zGZYQQVmXw0-unsplash.jpg");
   font-family: "Open Sans", sans-serif;
   flex-direction: column;
   padding-left: 10px;
@@ -366,10 +363,10 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
   text-underline-offset: 5px;
   font-size: clamp(50px, 20vw, 15em);
   text-decoration-thickness: clamp(5px, 0.75vw, 10px);
-  display: block;  
-  transition:2s;
-  color:rgb(22, 31, 45);
-  height: auto; 
+  display: block;
+  transition: 2s;
+  color: rgb(22, 31, 45);
+  height: auto;
 }
 .music > div > div {
   display: flex;
@@ -431,26 +428,27 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
 }
 #video-filters > span[status="selected"] {
   color: #b3a7a7;
-  transform: scale(1.15); 
-}  
-.video_container { 
-  display:flex; 
-  flex-direction: row; 
-  flex-wrap:wrap;      
-  width:80%;  
-  align-items: center; 
-  justify-content: center; 
-} 
-.video_container > h1 {  
-  width:100%; 
-  font-family: "Open Sans", sans-serif; 
-  font-weight: 800;  
-  text-align: center;  
-  
-} 
-.video_container > .description,  
-.video_container > .video  { 
-  width: max(50%, 300px);  
+  transform: scale(1.15);
+}
+.video_container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.video_container > h1 {
+  width: 100%;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 800;
+  text-align: center;
+}
+.video_container > .description,
+.video_container > .video {
+  width: max(50%, 300px);
   font-family: inherit;
 }
 

@@ -1,5 +1,5 @@
 //get viewer width
-const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);  
+const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 //on scroll for non-mobile screens
 window.onscroll = function () {
   var currentScrollPos = window.pageYOffset;
@@ -8,7 +8,7 @@ window.onscroll = function () {
     document.getElementsByClassName("nav")[0].style.top = "-100px";
   } else {
     document.getElementsByClassName("nav")[0].style.top = "0";
-  } 
+  }
 };
 [...document.getElementsByClassName("mobile-nav-screen")[0].children].forEach((element) => {
   element.addEventListener("click", function () {
@@ -16,7 +16,7 @@ window.onscroll = function () {
   });
 });
 
-//canvas stuff 
+//canvas stuff
 var ctx;
 var dashLen;
 var dashOffset;
@@ -52,7 +52,7 @@ function setCanvasUp() {
   ctx.strokeStyle = ctx.fillStyle = "#fff";
   ctx.lineCap = "round";
   ctx.textAlign = "left";
-} 
+}
 
 function loop() {
   if (txt[i] !== undefined) {
@@ -89,20 +89,20 @@ let callBack = (entries, observer) => {
     }
   });
 };
-let observer = new IntersectionObserver(callBack, options); 
-var h1 = Array(...document.getElementsByClassName("music"))[0].children[0].children[0]
+
+let observer = new IntersectionObserver(callBack, options);
+var h1 = Array(...document.getElementsByClassName("music"))[0].children[0].children[0];
 let observer1 = new IntersectionObserver(function (entries, observer) {
   entries.forEach((entry) => {
-    if (entry.isIntersecting) {  
-     setTimeout(function() { 
-      h1.style.color = "rgb(22, 31, 45)" 
-      h1.style.textShadow = "none"  
-     }, 2000)
-    } 
-    else { 
-      h1.style.animation   = "";  
-      h1.style.color = "#f4f4f4" 
-      h1.style.textShadow = "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black"
+    if (entry.isIntersecting) {
+      setTimeout(function () {
+        h1.style.color = "rgb(22, 31, 45)";
+        h1.style.textShadow = "none";
+      }, 2000);
+    } else {
+      h1.style.animation = "";
+      h1.style.color = "#f4f4f4";
+      h1.style.textShadow = "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black";
     }
   });
 }, options);
@@ -115,17 +115,16 @@ window.onresize = function () {
     setCanvasUp();
     setTimeout(requestAnimationFrame(loop), 1000);
   }, 1000);
-}; 
+};
 
 //Youtube API Stuff
 //var lianoChannelID = "UCqI8paXTIWivf5Fs3j_Uhxg"
 var filters = document.getElementById("video-filters");
-var inputQueries = document.getElementById("queriesInput"); 
-let totalVideos; 
-let maxResults = "";  
+var inputQueries = document.getElementById("queriesInput");
+let totalVideos;
+let maxResults = "";
 let musicList;
 //Most Recent Videos  https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCqI8paXTIWivf5Fs3j_Uhxg&maxResults=5&order=date&key=AIzaSyD0qU8w-eyrp9yhvVDlqPKS4EFNoOtJDas
- 
 
 filters.children[1].setAttribute("status", "selected");
 filters.children[2].setAttribute("status", "not-selected");
@@ -134,38 +133,37 @@ Array(...filters.children).forEach((span) => {
   span.addEventListener("click", function () {
     if (Array(...filters.children).indexOf(span) == 1) {
       filters.children[1].setAttribute("status", "selected");
-      filters.children[2].setAttribute("status", "not-selected"); 
-
+      filters.children[2].setAttribute("status", "not-selected");
     } else if (Array(...filters.children).indexOf(span) == 2) {
       filters.children[1].setAttribute("status", "not-selected");
-      filters.children[2].setAttribute("status", "selected"); 
-
+      filters.children[2].setAttribute("status", "selected");
     }
   });
-}); 
+});
 
-await getYoutubeVideos(); 
+getYoutubeVideos();
 
-async function getYoutubeVideos() { 
+async function getYoutubeVideos() {
   try {
-  const data = await getYoutubeAPI() 
-  totalVideos = data.pageInfo.totalResults;
-  maxResults = "&maxResults=" + totalVideos;
-  musicList = data.items;
-  checkAllVideos();
+    const youtubeAPIKEY = "AIzaSyD0qU8w-eyrp9yhvVDlqPKS4EFNoOtJDas";
+    const data = await getYoutubeAPI(youtubeAPIKEY);
+    totalVideos = data.pageInfo.totalResults;
+    maxResults = "&maxResults=" + totalVideos;
+    musicList = data.items;
+    checkAllVideos(youtubeAPIKEY);
   } catch (error) {
-    console.error("Error: ", error)
+    console.error("Error: ", error);
   }
-} 
+}
 //chekc if some videos are not present
-async function checkAllVideos() {
+async function checkAllVideos(youtubeAPIKEY) {
   if (musicList.length !== totalVideos) {
     await getYoutubeVideos();
   } else {
     var allVideoID = "";
     for (var i in musicList) {
       allVideoID += "&id=" + musicList[i].snippet.resourceId.videoId;
-    }  
+    }
     try {
       const response = await fetch(
         "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cstatistics" +
@@ -173,30 +171,31 @@ async function checkAllVideos() {
           "&key=" +
           youtubeAPIKEY +
           maxResults
-      ); 
-      const data = await response.json(); 
+      );
+      const data = await response.json();
       musicList = data.items;
       inputQueries.max = musicList.length;
     } catch (error) {
-      console.error("Error: ", error)
+      console.error("Error: ", error);
     }
   }
 }
+
 //make universal API call function
-async function getYoutubeAPI() { 
+async function getYoutubeAPI(youtubeAPIKEY) {
   try {
-var youtubeAPIKEY = "AIzaSyD0qU8w-eyrp9yhvVDlqPKS4EFNoOtJDas";
-var playListID = "PLgcOOHWxAGNBACwDmwtyYX9ViVtlFucgG";  
-const response = await fetch(
-  "https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" +
-    playListID +
-    "&key=" +
-    youtubeAPIKEY +
-    maxResults)
-const data = await response.json(); 
-return data;  
+    var playListID = "PLgcOOHWxAGNBACwDmwtyYX9ViVtlFucgG";
+    const response = await fetch(
+      "https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" +
+        playListID +
+        "&key=" +
+        youtubeAPIKEY +
+        maxResults
+    );
+    const data = await response.json();
+    return data;
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 }
 function orderByDate() {
@@ -214,6 +213,7 @@ function orderByDate() {
   }
   return mostRecent;
 }
+
 function orderByPopularity() {
   var popularVideos = [];
   var indexes = [];
@@ -225,7 +225,6 @@ function orderByPopularity() {
     var index = popularVideos.indexOf(max);
     indexes.push(index);
     popularVideos.splice(index, 1, "");
-    console.log(popularVideos);
   }
   return indexes;
 }
@@ -233,20 +232,23 @@ function orderByPopularity() {
 //make this better and more efficient; load in a bunch of divs and only have 3 iframes at a time
 function displayingVids(quantity, orderType) {
   var indicesOfVids = orderType;
-  for (var i = 0; i < quantity + 1; i++) {
-    const template = document.querySelector(".template_VideoFormat");  
-    const videoSlide = template.content.cloneNode(true).children[0];  
-    let title = videoSlide.querySelector(".video_title");   
-    let description = videoSlide.querySelector(".description");  
-    let video = videoSlide.querySelector(".video")
-    let iframe = document.createElement("iframe"); 
-    video.appendChild(iframe);
-    var vidId = musicList[indicesOfVids[i]].id; 
-    title.textContent = musicList[indicesOfVids[i]].snippet.title;  
-    description = musicList[indicesOfVids[i]].snippet.description; 
+  for (var i = 0; i < quantity; i++) {
+    const template = document.querySelector(".template_VideoFormat");
+    const videoSlide = template.content.cloneNode(true).children[0];
+    let title = videoSlide.querySelector(".video_title");
+    let description = videoSlide.querySelector(".description");
+    let video = videoSlide.querySelector(".video");
+   // let iframe = document.createElement("iframe");
+    var vidId = musicList[indicesOfVids[i]].id;
+    videoSlide.classList.add("gallery-cell");
+    videoSlide.style.background = `url(${musicList[indicesOfVids[i]].snippet.thumbnails.default.url}) no-repeat cover`;
+    title.textContent = musicList[indicesOfVids[i]].snippet.title;
+    description.innerHTML = musicList[indicesOfVids[i]].snippet.description;
+   /* video.appendChild(iframe);
     iframe.width = "640";
     iframe.height = "360";
     iframe.type = "text/html";
-    iframe.src = "https://www.youtube.com/embed/" + vidId + "?rel=0";  
+    iframe.src = "https://www.youtube.com/embed/" + vidId + "?rel=0"; */
+    document.getElementById("videosContainer").append(videoSlide); 
   }
 }
