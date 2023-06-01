@@ -243,7 +243,8 @@ function displayingVids(quantity, orderType) {
     videoSlide.classList.add("gallery-cell");
     videoSlide.style.background = `url(${musicList[indicesOfVids[i]].snippet.thumbnails.default.url}) no-repeat cover`;
     title.textContent = musicList[indicesOfVids[i]].snippet.title;
-    description.innerHTML = musicList[indicesOfVids[i]].snippet.description;
+    description.innerHTML = musicList[indicesOfVids[i]].snippet.description;  
+    
    /* video.appendChild(iframe);
     iframe.width = "640";
     iframe.height = "360";
