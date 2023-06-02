@@ -1,6 +1,8 @@
-//Only for development, delete after website is completed. 
-alert("Hi, this website is still in development. Please visit it later." + 
-" Development will probably be done by mid-June"); 
+//Only for development, delete after website is completed.
+alert(
+  "Hi, this website is still in development. Please visit it later." +
+    " Development will probably be done by mid-June"
+);
 //get viewer width
 const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 //on scroll for non-mobile screens
@@ -212,7 +214,6 @@ function orderByDate() {
     var index = datesList.indexOf(max);
     mostRecent.push(index);
     datesList.splice(index, 1, "");
-    console.log(new Date(max));
   }
   return mostRecent;
 }
@@ -231,9 +232,31 @@ function orderByPopularity() {
   }
   return indexes;
 }
+//Use flickity script to create and display youtube videos
+let elem = document.querySelector(".main-carousel");
+let flkty;
+function initializeFlkty() {
+  if (flkty === undefined) {
+    flkty = new Flickity(elem, {
+      // options
+      cellAlign: "center",
+      contain: true,
+      adaptiveHeight: true,
+    });
+  }
+}
+function displayVids() {
+  checkAndDeleteOldCells();
+  if (filters.children[1].hasAttribute(("status", "selected"))) {
+    createVids(Number(inputQueries.value), orderByDate());
+  } else {
+    createVids(Number(inputQueries.value), orderByPopularity());
+  }
+  initializeFlkty();
+}
 
 //make this better and more efficient; load in a bunch of divs and only have 3 iframes at a time
-function displayingVids(quantity, orderType) {
+function createVids(quantity, orderType) {
   var indicesOfVids = orderType;
   for (var i = 0; i < quantity; i++) {
     const template = document.querySelector(".template_VideoFormat");
@@ -241,17 +264,67 @@ function displayingVids(quantity, orderType) {
     let title = videoSlide.querySelector(".video_title");
     let description = videoSlide.querySelector(".description");
     let video = videoSlide.querySelector(".video");
-   // let iframe = document.createElement("iframe");
+    let iframe = document.createElement("iframe");
     var vidId = musicList[indicesOfVids[i]].id;
-    videoSlide.classList.add("carousel-cell");
-    videoSlide.style.background = `url(${musicList[indicesOfVids[i]].snippet.thumbnails.default.url}) no-repeat cover`;
+    videoSlide.style.backgroundImage = `url(${
+      musicList[indicesOfVids[i]].snippet.thumbnails.maxres.url
+    })`;
+    videoSlide.style.backgroundSize = "cover";
+    videoSlide.style.backgroundRepeat = "no-repeat";
     title.textContent = musicList[indicesOfVids[i]].snippet.title;
-    description.innerHTML = musicList[indicesOfVids[i]].snippet.description;         
-   /* video.appendChild(iframe);
-    iframe.width = "640";
-    iframe.height = "360";
+    description.innerHTML =  shortenDescription(musicList[indicesOfVids[i]].snippet.description)
+    
+    iframe.width = "480";
+    iframe.height = "270";
     iframe.type = "text/html";
-    iframe.src = "https://www.youtube.com/embed/" + vidId + "?rel=0"; */
-    document.getElementById("videosContainer").append(videoSlide); 
+    iframe.src = "https://www.youtube.com/embed/" + vidId + "?rel=0";  
+    video.appendChild(iframe);
+    document.getElementById("videosContainer").append(videoSlide);
+  }
+}
+function shortenDescription(description) {
+  let indexOfFirstQuotationMark = description.indexOf(`"`);
+  if (description.indexOf("Story:") != -1) {
+    let substringOfDescription = description.substring(description.indexOf(`Story:`) + 1);
+    let indexOfEnd = substringOfDescription.indexOf(`----`);
+    let newDescription = description.substring(
+      description.indexOf("Story:"),
+      indexOfEnd + (description.length - substringOfDescription.length)
+    );
+    return newDescription;
+  } else if (
+    indexOfFirstQuotationMark != -1 &&
+    indexOfFirstQuotationMark < description.indexOf(".")
+  ) {
+    let substringOfDescription = description.substring(description.indexOf(`"`) + 1);
+    let indexOfOtherQuotationMark = substringOfDescription.indexOf(`"`);
+    let newDescription = description.substring(
+      indexOfFirstQuotationMark,
+      indexOfOtherQuotationMark + (description.length - substringOfDescription.length) + 1
+    );
+    return newDescription;
+  } else {
+    let firstPeriod = description.indexOf(". ");
+    let substringOfDescription = description;
+    let i = 0;
+    let indexOfFourthPeriod = firstPeriod;
+    while (i < 3 && substringOfDescription.indexOf(".") != -1) {
+      substringOfDescription = description.substring(indexOfFourthPeriod + 1); 
+      indexOfFourthPeriod = substringOfDescription.indexOf(". ");
+      i++;
+    }
+    let newDescription = description.substring(
+      0,
+      indexOfFourthPeriod + (description.length - substringOfDescription.length) + 1
+    );
+    return newDescription;
+  }
+}
+
+function checkAndDeleteOldCells() {
+  if (document.getElementById("videosContainer").children.length != 0) {
+    flkty.destroy();
+    flkty = undefined;
+    document.getElementById("videosContainer").innerHTML = "";
   }
 }
