@@ -274,7 +274,7 @@ function createVids(quantity, orderType) {
     title.textContent = musicList[indicesOfVids[i]].snippet.title;
     description.innerHTML =  shortenDescription(musicList[indicesOfVids[i]].snippet.description)
     
-    iframe.width = "480";
+    iframe.width = "100%";
     iframe.height = "270";
     iframe.type = "text/html";
     iframe.src = "https://www.youtube.com/embed/" + vidId + "?rel=0";  
