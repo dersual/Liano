@@ -1,8 +1,4 @@
 //Only for development, delete after website is completed.
-alert(
-  "Hi, this website is still in development. Please visit it later." +
-    " Development will probably be done by mid-June"
-);
 //get viewer width
 const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 //on scroll for non-mobile screens
@@ -143,9 +139,12 @@ Array(...filters.children).forEach((span) => {
       filters.children[1].setAttribute("status", "not-selected");
       filters.children[2].setAttribute("status", "selected");
     }
+    displayVids(musicList);
   });
 });
-
+inputQueries.addEventListener("change", function () {
+  displayVids(musicList);
+});
 getYoutubeVideos();
 
 async function getYoutubeVideos() {
@@ -180,6 +179,7 @@ async function checkAllVideos(youtubeAPIKEY) {
       const data = await response.json();
       musicList = data.items;
       inputQueries.max = musicList.length;
+      displayVids(musicList);
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -203,10 +203,10 @@ async function getYoutubeAPI(youtubeAPIKEY) {
     throw new Error(error);
   }
 }
-function orderByDate() {
+function orderByDate(videoList) {
   var datesList = [];
   var mostRecent = [];
-  for (videos of musicList) {
+  for (videos of videoList) {
     datesList.push(new Date(videos.snippet.publishedAt).getTime());
   }
   for (var i = 0; i < datesList.length; i++) {
@@ -218,10 +218,10 @@ function orderByDate() {
   return mostRecent;
 }
 
-function orderByPopularity() {
+function orderByPopularity(videoList) {
   var popularVideos = [];
   var indexes = [];
-  for (videos of musicList) {
+  for (videos of videoList) {
     popularVideos.push(Number(videos.statistics.viewCount));
   }
   for (var i = 0; i < popularVideos.length; i++) {
@@ -245,18 +245,18 @@ function initializeFlkty() {
     });
   }
 }
-function displayVids() {
+function displayVids(list) {
   checkAndDeleteOldCells();
-  if (filters.children[1].hasAttribute(("status", "selected"))) {
-    createVids(Number(inputQueries.value), orderByDate());
+  if (filters.children[1].getAttribute("status") === "selected") {
+    createVids(Number(inputQueries.value), orderByDate(list), list);
   } else {
-    createVids(Number(inputQueries.value), orderByPopularity());
+    createVids(Number(inputQueries.value), orderByPopularity(list), list);
   }
   initializeFlkty();
 }
 
 //make this better and more efficient; load in a bunch of divs and only have 3 iframes at a time
-function createVids(quantity, orderType) {
+function createVids(quantity, orderType, list) {
   var indicesOfVids = orderType;
   for (var i = 0; i < quantity; i++) {
     const template = document.querySelector(".template_VideoFormat");
@@ -265,19 +265,19 @@ function createVids(quantity, orderType) {
     let description = videoSlide.querySelector(".description");
     let video = videoSlide.querySelector(".video");
     let iframe = document.createElement("iframe");
-    var vidId = musicList[indicesOfVids[i]].id;
+    var vidId = list[indicesOfVids[i]].id;
     videoSlide.style.backgroundImage = `url(${
-      musicList[indicesOfVids[i]].snippet.thumbnails.maxres.url
+      list[indicesOfVids[i]].snippet.thumbnails.maxres.url
     })`;
     videoSlide.style.backgroundSize = "cover";
     videoSlide.style.backgroundRepeat = "no-repeat";
-    title.textContent = musicList[indicesOfVids[i]].snippet.title;
-    description.innerHTML =  shortenDescription(musicList[indicesOfVids[i]].snippet.description)
-    
+    title.textContent = list[indicesOfVids[i]].snippet.title;
+    description.innerHTML = shortenDescription(list[indicesOfVids[i]].snippet.description);
+
     iframe.width = "100%";
     iframe.height = "270";
     iframe.type = "text/html";
-    iframe.src = "https://www.youtube.com/embed/" + vidId + "?rel=0";  
+    iframe.src = "https://www.youtube-nocookie.com/embed/" + vidId + "?rel=0";
     video.appendChild(iframe);
     document.getElementById("videosContainer").append(videoSlide);
   }
@@ -304,19 +304,16 @@ function shortenDescription(description) {
     );
     return newDescription;
   } else {
-    let firstPeriod = description.indexOf(". ");
-    let substringOfDescription = description;
+    let descriptionPeriodsSplit = description.split(". ");
+    let newDescription = "";
+    let periodChecker = description;
     let i = 0;
-    let indexOfFourthPeriod = firstPeriod;
-    while (i < 3 && substringOfDescription.indexOf(".") != -1) {
-      substringOfDescription = description.substring(indexOfFourthPeriod + 1); 
-      indexOfFourthPeriod = substringOfDescription.indexOf(". ");
+    while (i < 4 && periodChecker.indexOf(". ") != -1) {
+      newDescription += descriptionPeriodsSplit[i] + ". ";
+      periodChecker = periodChecker.substring(periodChecker.indexOf(". ") + 1);
       i++;
     }
-    let newDescription = description.substring(
-      0,
-      indexOfFourthPeriod + (description.length - substringOfDescription.length) + 1
-    );
+
     return newDescription;
   }
 }

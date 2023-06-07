@@ -456,12 +456,14 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
 } 
 .video_container > h1, .video_container > .description { 
   font-family: "Open Sans", sans-serif; 
-  color: #f2f2f2;
+  color: #f2f2f2; 
+  width: 100%; 
 }
-.video_container > .description,
+
 .video_container > .video {
   width: max(50%, 300px);
-  font-family: inherit;
+  font-family: inherit; 
+  margin-top:15px
 } 
 .video_container > .description { 
   background-repeat: no-repeat;
