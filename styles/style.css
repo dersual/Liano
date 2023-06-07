@@ -463,7 +463,7 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
 .video_container > .video {
   width: max(50%, 300px);
   font-family: inherit; 
-  margin-top:15px
+  margin: 15px auto;
 } 
 .video_container > .description { 
   background-repeat: no-repeat;
