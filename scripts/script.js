@@ -10,7 +10,7 @@ window.onscroll = function () {
   } else {
     document.getElementsByClassName("nav")[0].style.top = "0";
   }
-};
+}; 
 [...document.getElementsByClassName("mobile-nav-screen")[0].children].forEach((element) => {
   element.addEventListener("click", function () {
     document.getElementsByClassName("mobile-nav")[0].children[0].checked = false;
