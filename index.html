@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>LIANO</title>
-    <meta name="description" content="Official Website for Liano. Discover and stay-up to date on Liano's content" > 
-    <meta name = "keywords" content = "Liano, Liano Website, liano, liano website, liano music artist, liano skyfall, liano.com">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />  
-    <link rel="apple-touch-icon" sizes="76x76" href="favicon-package/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-package/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-package/favicon-16x16.png">
-    <link rel="manifest" href="favicon-package/site.webmanifest">
-    <link rel="mask-icon" href="favicon-package/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <meta
+      name="description"
+      content="Official Website for Liano. Discover and stay-up to date on Liano's content"
+    />
+    <meta
+      name="keywords"
+      content="Liano, Liano Website, liano, liano website, liano music artist, liano skyfall, liano.com"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="apple-touch-icon" sizes="76x76" href="favicon-package/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-package/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-package/favicon-16x16.png" />
+    <link rel="manifest" href="favicon-package/site.webmanifest" />
+    <link rel="mask-icon" href="favicon-package/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,9 +31,9 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap"
       rel="stylesheet"
-    /> 
-    <link rel="stylesheet" href="styles/flickity.css">
-    <script src="https://kit.fontawesome.com/eb633b28da.js" crossorigin="anonymous"></script> 
+    />
+    <link rel="stylesheet" href="styles/flickity.css" />
+    <script src="https://kit.fontawesome.com/eb633b28da.js" crossorigin="anonymous"></script>
     <script src="scripts/flickity.pkgd.min.js"></script>
   </head>
   <body>
@@ -42,7 +48,7 @@
       <a href="#music">Music</a>
     </div>
     <div class="mobile-nav">
-      <input type="checkbox" />
+      <input name = "toggler_mobileNav" type="checkbox" />
       <div class="mobileNav-toggler">
         <span></span>
         <span></span>
@@ -58,14 +64,18 @@
     <div class="site">
       <div id="home" class="home">
         <div>
-          <img class="LianoPic" alt="LianoPFP" src="Images/LianoPic.jpg" />
+          <img class="LianoPic" alt="Liano Profile Picture" src="Images/profilePic.jpg" />
           <div>
             <a
               href="https://www.youtube.com/channel/UCqI8paXTIWivf5Fs3j_Uhxg"
               class="social-buttons"
+              aria-label="Liano's Youtube Channel"
               ><i class="fa-brands fa-youtube fa-vw"></i
             ></a>
-            <a href="https://www.instagram.com/liano_music/" class="social-buttons"
+            <a
+              href="https://www.instagram.com/liano_music/"
+              class="social-buttons"
+              aria-label="Liano's Instagram"
               ><i class="fa-brands fa-instagram fa-vw"></i
             ></a>
           </div>
@@ -74,7 +84,7 @@
           <p>
             Everywhere I go, I hear the words of music. So I write them down in my diary. <br />
             <span class="end-quote"
-              >-<img class="LianoName" alt="LianoQuote" src="Images/LianoName.png" />
+              >-<img class="LianoName" alt="LianoQuote" src="Images/name.png" />
             </span>
           </p>
         </div>
@@ -109,7 +119,7 @@
             </p>
           </div>
           <div>
-            <img alt = "music-notes" src="Images/MusicNotes.png" />
+            <img alt="music-notes" src="Images/MusicNotes.png" />
           </div>
         </div>
       </div>
@@ -117,31 +127,26 @@
         <div>
           <h1>Music</h1>
           <div id="video-filters">
-            <div>
-              <img alt = "filter" src="Images/filter-icon.png" /> 
-              <!--<i class="fa-solid fa-filter-list" style="color: #000000;"></i>-->
-            </div>
+            <i class="fa-solid fa-filter" style="color: #000000"></i>
             <span>Most Recent</span>
             <span>Most Popular</span>
             <div>
-              <input id="queriesInput" placeholder="#" type="number" value="5" min="1" />
+              <input name = "input_numOfQueries" id="queriesInput" placeholder="#" type="number" value="5" min="1" />
             </div>
           </div>
-        </div> 
-        
-        <div id="videosContainer"  class = "main-carousel" >   
-          
         </div>
+
+        <div id="videosContainer" class="main-carousel"></div>
       </div>
-    </div>  
+    </div>
     <!--Templates Here-->
-    <template class = "template_VideoFormat">       
-      <div class = "video_container">
-      <h1 class = "video_title"></h1>  
-      <div class = "description"></div>
-      <div class = "video"></div> 
-    </div>   
-    </template> 
-    <script src="scripts/script.js" defer></script> 
+    <template class="template_VideoFormat">
+      <div class="video_container">
+        <h1 class="video_title"></h1>
+        <div class="description"></div>
+        <div class="video"></div>
+      </div>
+    </template>
+    <script src="scripts/script.js" defer></script>
   </body>
 </html>

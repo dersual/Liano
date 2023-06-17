@@ -18,7 +18,7 @@ window.onscroll = function () {
 });
 
 //canvas stuff
-var ctx;
+var ctx = document.querySelector("canvas").getContext("2d");
 var dashLen;
 var dashOffset;
 var speed;
@@ -28,7 +28,6 @@ var y;
 var i;
 var fontSize;
 function setCanvasUp() {
-  (ctx = document.querySelector("canvas").getContext("2d")),
     (dashLen = 350),
     (dashOffset = dashLen),
     (speed = 5),
@@ -85,7 +84,7 @@ let callBack = (entries, observer) => {
     if (entry.isIntersecting) {
       setCanvasUp();
       loop();
-    } else {
+    } else if(ctx != undefined || ctx != null) {
       ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     }
   });
@@ -272,12 +271,12 @@ function createVids(quantity, orderType, list) {
     videoSlide.style.backgroundSize = "cover";
     videoSlide.style.backgroundRepeat = "no-repeat";
     title.textContent = list[indicesOfVids[i]].snippet.title;
-    description.innerHTML = shortenDescription(list[indicesOfVids[i]].snippet.description);
-
+    description.innerHTML = shortenDescription(list[indicesOfVids[i]].snippet.description); 
+    iframe.title = list[indicesOfVids[i]].snippet.title;
     iframe.width = "100%";
     iframe.height = "270";
     iframe.type = "text/html";
-    iframe.src = "https://www.youtube-nocookie.com/embed/" + vidId + "?rel=0";
+    iframe.src = "https://www.youtube-nocookie.com/embed/" + vidId + "?rel=0"; 
     video.appendChild(iframe);
     document.getElementById("videosContainer").append(videoSlide);
   }
