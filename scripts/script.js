@@ -30,7 +30,7 @@ var fontSize;
 function setCanvasUp() {
     (dashLen = 350),
     (dashOffset = dashLen),
-    (speed = 5),
+    (speed = 7),
     (txt = "HEYO"),
     (x = 5), //document.querySelector("canvas").width / 2 - ctx.measureText(txt).width / 2),
     (y = 0.55 * document.querySelector("canvas").clientWidth), //0.5 * document.querySelector("canvas").clientWidth ),
@@ -42,7 +42,7 @@ function setCanvasUp() {
   ctx.lineWidth = 3;
   ctx.lineJoin = "round";
   ctx.globalAlpha = 1;
-  fontSize = 40;
+  fontSize = 45;
   ctx.font = "700 " + fontSize + "px Kalam, cursive";
   do {
     fontSize--;
@@ -98,7 +98,7 @@ let observer1 = new IntersectionObserver(function (entries, observer) {
       setTimeout(function () {
         h1.style.color = "rgb(22, 31, 45)";
         h1.style.textShadow = "none";
-      }, 2000);
+      }, 500);
     } else {
       h1.style.animation = "";
       h1.style.color = "#f4f4f4";
