@@ -208,8 +208,8 @@ input:checked ~ .mobile-nav-screen {
   display: flex;
   flex-direction: column;
   font-family: initial;
-  z-index: -2; 
-  background-image: url("../Images/background.webp"); 
+  z-index: -2;
+  background-image: url("../Images/background.webp");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -221,7 +221,7 @@ input:checked ~ .mobile-nav-screen {
   font-family: inherit;
   display: flex;
 }
-.home { 
+.home {
   background: transparent;
   flex-direction: row-reverse;
   flex-wrap: wrap;
@@ -387,12 +387,13 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
   align-items: center;
   justify-content: space-around;
 }
-#video-filters > i:first-child {
-  text-align: center;
-  font-size: 100%;
+#video-filters > *:first-child {
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  cursor: default;
 }
-#video-filters > span,
-#video-filters > div:last-child {
+#video-filters > * {
   border: #f7f1f1 solid 1px;
   padding: clamp(5px, 1.25vw, 10px);
   font-size: clamp(8px, 2vw, 16px);
