@@ -1,9 +1,10 @@
 const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-//on scroll for non-mobile screens
+
+//on scroll for non-mobile screens bring down nav based on scroll height
 window.onscroll = function () {
   var currentScrollPos = window.scrollY;
 
-  if (currentScrollPos < 550 || vw < 625) {
+  if (currentScrollPos < 50 || vw < 625) {
     document.getElementsByClassName("nav")[0].style.top = "-100px";
   } else {
     document.getElementsByClassName("nav")[0].style.top = "0";
@@ -15,7 +16,7 @@ window.onscroll = function () {
   });
 });
 
-//canvas stuff
+//Canvas draws heyo
 var ctx = document.querySelector("canvas").getContext("2d");
 var dashLen;
 var dashOffset;
@@ -69,7 +70,8 @@ function loop() {
     }
   }
 }
-// intersection API stuff
+
+//Events on scroll based on intersection API stuff
 
 let options = {
   // root: document.getElementById("about-me").children[1].children[1] ,
@@ -115,33 +117,50 @@ window.onresize = function () {
   }, 1000);
 };
 
+//Handle numbered inputs
+
+function imposeMinMax(el) {
+  if (el.value != "") {
+    if (parseInt(el.value) < parseInt(el.min)) {
+      el.value = el.min;
+    }
+    if (parseInt(el.value) > parseInt(el.max)) {
+      el.value = el.max;
+    }
+  }
+}
 //Youtube API Stuff
 //var lianoChannelID = "UCqI8paXTIWivf5Fs3j_Uhxg"
-var filters = document.getElementById("video-filters");
+var filters = document.getElementById("container_filterOptions");
 var inputQueries = document.getElementById("queriesInput");
 let totalVideos;
 let maxResults = "";
 let musicList;
 //Most Recent Videos  https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCqI8paXTIWivf5Fs3j_Uhxg&maxResults=5&order=date&key=AIzaSyD0qU8w-eyrp9yhvVDlqPKS4EFNoOtJDas
 
-filters.children[1].setAttribute("status", "selected");
-filters.children[2].setAttribute("status", "not-selected");
+filters.children[0].setAttribute("status", "selected");
+filters.children[1].setAttribute("status", "not-selected");
 
 Array(...filters.children).forEach((span) => {
   span.addEventListener("click", function () {
-    if (Array(...filters.children).indexOf(span) == 1) {
-      filters.children[1].setAttribute("status", "selected");
-      filters.children[2].setAttribute("status", "not-selected");
-    } else if (Array(...filters.children).indexOf(span) == 2) {
+    if (Array(...filters.children).indexOf(span) == 0) {
+      filters.children[0].setAttribute("status", "selected");
       filters.children[1].setAttribute("status", "not-selected");
-      filters.children[2].setAttribute("status", "selected");
+    } else if (Array(...filters.children).indexOf(span) == 1) {
+      filters.children[0].setAttribute("status", "not-selected");
+      filters.children[1].setAttribute("status", "selected");
     }
     displayVids(musicList);
   });
 });
+
 inputQueries.addEventListener("change", function () {
   displayVids(musicList);
-});
+}); 
+
+inputQueries.oninput = () => {
+  imposeMinMax(inputQueries);
+};
 getYoutubeVideos();
 
 async function getYoutubeVideos() {
@@ -327,9 +346,9 @@ function toggleDescriptionVisibility(element, description) {
   if (description.length === 0) {
     element.setAttribute("displayed", false);
   } else if (vw < 425) {
-    element.setAttribute("toggled", "false"); 
-    element.previousElementSibling.querySelector("i").style.display = "default"
-    element.previousElementSibling.addEventListener("click", function () { 
+    element.setAttribute("toggled", "false");
+    element.previousElementSibling.querySelector("i").style.display = "default";
+    element.previousElementSibling.addEventListener("click", function () {
       let state = element.getAttribute("toggled") === "true";
       let addedClass = state ? "fa-caret-down" : "fa-caret-up";
       let removedClass = state ? "fa-caret-up" : "fa-caret-down";
@@ -338,8 +357,8 @@ function toggleDescriptionVisibility(element, description) {
       element.setAttribute("toggled", String(!state));
       flkty.reloadCells();
     });
-  } else { 
-    element.previousElementSibling.querySelector("i").style.display = "none"
-    element.setAttribute("toggled", true); 
+  } else {
+    element.previousElementSibling.querySelector("i").style.display = "none";
+    element.setAttribute("toggled", true);
   }
 }
