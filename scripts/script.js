@@ -144,11 +144,11 @@ filters.children[1].setAttribute("status", "not-selected");
 Array(...filters.children).forEach((span) => {
   span.addEventListener("click", function () {
     if (Array(...filters.children).indexOf(span) == 0) {
-      filters.children[0].setAttribute("status", "selected");
-      filters.children[1].setAttribute("status", "not-selected");
-    } else if (Array(...filters.children).indexOf(span) == 1) {
-      filters.children[0].setAttribute("status", "not-selected");
       filters.children[1].setAttribute("status", "selected");
+      filters.children[0].setAttribute("status", "not-selected");
+    } else if (Array(...filters.children).indexOf(span) == 1) {
+      filters.children[1].setAttribute("status", "not-selected");
+      filters.children[0].setAttribute("status", "selected");
     }
     displayVids(musicList);
   });
