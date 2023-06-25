@@ -1,4 +1,16 @@
 /* 
+Variables 
+====================================================
+*/
+
+:root {
+  --dark-color: #161f2d; /*#474747 #161f2d*/
+  --light-color: #f2f2f2;
+  --gray-color: #574d60;
+  --button-color: #000000;
+}
+
+/* 
 Reset CSS 
 ====================================================  
 */
@@ -68,6 +80,50 @@ select {
   box-sizing: border-box;
 }
 
+.hover-underline-animation::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 2px;
+  left: 0;
+  transform-origin: bottom left;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+}
+
+a.hover-underline-animation::after {
+  transform: scaleX(0);
+}
+
+a.hover-underline-animation:hover::after, a.hover-underline-animation[scrolledOn = "true"]::after {
+  transform: scaleX(1);
+} 
+
+h1.hover-underline-animation::after {
+  opacity: 0.5;
+  bottom: 15%;
+  z-index: 2;
+  height: 15%;
+  transform-origin: bottom;
+  transform: scaleY(0); 
+  transition: transform 1s ease-out;
+}  
+
+h1.hover-underline-animation[scrolledOn="true"]::after {
+  transform: scaleY(1.2);
+}  
+
+/*text-wrap: balance is currently not supported on all browsers */
+h1,
+h2, p {
+  text-wrap: balance;
+}
+
 /* 
 Animations 
 ====================================================
@@ -108,7 +164,7 @@ Navigation
   justify-content: space-evenly;
   font-family: "Open Sans", sans-serif;
   font-size: 1.8em;
-  color: rgb(138, 138, 138);
+  color: var(--dark-color);
   transition: 0.25s;
   font-weight: 300;
   z-index: 4;
@@ -136,6 +192,12 @@ Navigation
   border-bottom: solid 1px rgb(138, 138, 138);
 }
 
+.mobile-nav {
+  display: block;
+  position: fixed;
+  z-index: 3;
+}
+
 .home-nav > *,
 .nav > *,
 .mobile-nav-screen > * {
@@ -149,15 +211,15 @@ Navigation
 .nav > *:hover,
 .mobile-nav-screen > *:hover {
   /*background: rgb(255, 255, 255); */
-  color: #b3a7a7;
+  color: var(--gray-color);
   opacity: 0.7;
   cursor: pointer;
 }
-
-.mobile-nav {
-  display: block;
-  position: fixed;
-  z-index: 3;
+.home-nav > *::after,
+.nav > *::after,
+.mobile-nav-screen > *::after {
+  background-color: var(--gray-color);
+  opacity: 0.7;
 }
 
 .mobileNav-toggler {
@@ -247,6 +309,17 @@ input:checked ~ .mobile-nav-screen {
   left: 0;
 }
 
+@media screen and (min-width: 625px) {
+  .home-nav,
+  .nav {
+    display: flex;
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+}
+
 /*  
 Site Setup 
 =====================================================
@@ -263,8 +336,9 @@ Site Setup
   background-attachment: fixed;
   background-size: cover;
 }
+
 .site > * {
-  width: 100%;
+  width: 100vw;
   height: fit-content;
   font-family: inherit;
   display: flex;
@@ -281,23 +355,23 @@ Home
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
-  padding-top: 8vw;
-  height: 600px;
+  margin-top: 9vw;
+  margin-bottom: min(4.5vw, 50px);
 }
 
 .home > * {
-  width: clamp(280px, 45%, 648px);
+  width: 100%;
   display: flex;
 }
 
-.home > div:first-child {
+#container_socials {
   align-items: center;
   flex-direction: column;
   gap: 20px;
-  margin-top: 1.5vw;
+  margin-top: 2vw;
 }
 
-.home > div:first-child > * {
+#container_socials > * {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -306,14 +380,17 @@ Home
   gap: inherit;
 }
 
-.home > div:nth-child(2) {
+#container_quote {
   -ms-flex-align: center;
   align-items: center;
   justify-content: center;
   font-family: "Cedarville Cursive", cursive;
-  font-size: clamp(25px, 3.25vw, 37px);
-  margin-top: 3vw;
+  font-size: clamp(25px, 3.75vw, 37px);
+  margin-top: 5vw;
   text-align: center;
+  padding-left: 25px;
+  padding-right: 25px;
+  color: var(--dark-color);
 }
 
 .end-quote {
@@ -324,16 +401,16 @@ Home
 
 .LianoPic {
   border-radius: 360px;
-  height: min(200px, max(25vw, 160px));
+  height: min(180px, max(20vw, 145px));
 }
 
 .social-buttons {
-  background: black;
-  height: clamp(60px, 5.2vw, 70px);
-  width: clamp(60px, 5.2vw, 70px);
+  background: var(--button-color);
+  height: clamp(60px, 5vw, 70px);
+  width: clamp(60px, 5vw, 70px);
   line-height: clamp(60px, 5.2vw, 70px);
   border-radius: 50%;
-  color: white;
+  color: var(--light-color);
   text-align: center;
   font-size: 1.8em;
   transition: 0.25s;
@@ -356,6 +433,30 @@ Home
   height: clamp(110px, 15vw, 200px);
 }
 
+@media screen and (min-width: 625px) {
+  #container_socials > * {
+    flex-direction: column;
+  }
+
+  .home {
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    margin-left: 30px;
+    margin-right: 10px;
+    margin-top: 130px;
+  }
+  #container_socials {
+    width: 25vw;
+  }
+  #container_quote {
+    text-align: left;
+    width: 60vw;
+  }
+
+  .social-buttons {
+    font-size: 2em;
+  }
+}
 /* 
 About Me 
 =======================================================================
@@ -383,22 +484,17 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
   padding-bottom: 15px;
 }
 
-.about-me > h1 {
-  font-size: 4em;
-  text-align: center;
-  margin-bottom: 10px;
-}
 .about-me > div {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   align-content: center;
   align-items: center;
 }
 
 .about-me > div > div {
-  width: max(50%, 400px);
+  width: max(45%, 400px);
   flex-direction: column;
   justify-content: space-evenly;
   align-content: center;
@@ -414,17 +510,30 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
   display: inline;
 }
 
-.about-me > div > div > h1 {
-  font-size: 4em;
+#header_aboutMe {
+  font-size: 3.5rem;
+  text-align: left;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+
+#header_aboutMe::after {
+  background-color: var(--light-color);
 }
 
 .about-me > div > div > p {
-  font-size: clamp(0.75em, 1.25vw, 1.2em);
+  font-size: clamp(0.75em, 1.25vw, 1em);
   font-weight: 300;
 }
 
 .about-me > div > div > p:last-child {
   margin-bottom: 0px;
+}
+
+@media screen and (min-width: 625px) {
+  #heyo {
+    display: inline-block;
+  }
 }
 
 /* 
@@ -448,15 +557,15 @@ Music
   justify-content: space-around;
 }
 
-.music > div > h1 {
-  text-decoration: underline;
-  text-underline-offset: 5px;
-  font-size: clamp(6em, 15vw, 9em);
-  text-decoration-thickness: clamp(5px, 0.75vw, 10px);
-  display: block;
+#header_music {
+  font-size: clamp(6rem, 15vw, 9rem);
   transition: 2s;
   color: rgb(22, 31, 45);
   height: auto;
+}
+
+#header_music::after {
+  background-color: var(--dark-color);
 }
 
 .music > div > div {
@@ -474,6 +583,7 @@ Music
   padding-right: 0.8rem;
   padding-left: 0.8rem;
   gap: 20px;
+  border: 1px solid var(--dark-color);
 }
 
 #video-filters > *:first-child {
@@ -499,7 +609,7 @@ Music
   padding: clamp(5px, 1.25vw, 10px);
   font-size: clamp(0.8rem, 2vw, 1.1rem);
   white-space: nowrap;
-  background: #fff;
+  background: var(--light-color);
   box-shadow: 1px 2px 5px hsl(0deg 0% 0% / 0.4);
   -webkit-box-shadow: 1px 2px 5px hsl(0deg 0% 0% / 0.4);
   -moz-box-shadow: 1px 2px 5px hsl(0deg 0% 0% / 0.4);
@@ -544,8 +654,9 @@ div:has(#queriesInput) {
 }
 
 #container_filterOptions > span[status="selected"] {
-  color: #b3a7a7;
+  color: var(--gray-color);
   transform: scale(1.15);
+  text-shadow: rgba(87, 77, 96, 0.9) 0px 0px 20px;
 }
 
 .video_container {
@@ -590,7 +701,7 @@ div:has(#queriesInput) {
 .video_container > .description {
   background-repeat: no-repeat;
   padding: 15px;
-  font-size: clamp(0.75em, 1.2vw, 1.15em);
+  font-size: clamp(0.75em, 1vw, 0.9em);
 }
 
 .description[toggled="false"],
@@ -601,39 +712,4 @@ div:has(#queriesInput) {
 
 .description[toggled="true"] {
   animation: expandHeight 1s ease 0s 1 normal forwards;
-}
-
-/* 
-Media Queries 
-=============================================
-*/
-@media screen and (min-width: 625px) {
-  .home > div:first-child > * {
-    flex-direction: column;
-  }
-
-  .home {
-    justify-content: normal;
-  }
-
-  .home > div:nth-child(2) {
-    text-align: left;
-  }
-
-  .social-buttons {
-    font-size: 2em;
-  }
-
-  .home-nav,
-  .nav {
-    display: flex;
-  }
-
-  .mobile-nav {
-    display: none;
-  }
-
-  #heyo {
-    display: inline-block;
-  }
 }

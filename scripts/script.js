@@ -48,7 +48,7 @@ function setCanvasUp() {
     ctx.font = "700 " + fontSize + "px Kalam, cursive";
   } while (ctx.measureText(txt).width + 25 > document.querySelector("canvas").clientWidth);
   ctx.font = "700 " + fontSize + "px Kalam, cursive";
-  ctx.strokeStyle = ctx.fillStyle = "#fff";
+  ctx.strokeStyle = ctx.fillStyle = "#f2f2f2";
   ctx.lineCap = "round";
   ctx.textAlign = "left";
 }
@@ -76,38 +76,81 @@ function loop() {
 let options = {
   // root: document.getElementById("about-me").children[1].children[1] ,
   rootMargin: "0px",
-  threshold: 1.0,
+  threshold: 0.6,
 };
-
+var musicHeading = Array(...document.getElementsByClassName("music"))[0].children[0].children[0];
 let callBack = (entries, observer) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      setCanvasUp();
-      loop();
-    } else if (ctx != undefined || ctx != null) {
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      switch (entry.target) {
+        case document.getElementById("home"):
+          Array(...document.getElementsByClassName("homeLink")).forEach((link) => {
+            link.setAttribute("scrolledOn", true);
+          });
+          break;
+        case document.getElementById("about-me"):
+          Array(...document.getElementsByClassName("aboutMeLink")).forEach((link) => {
+            link.setAttribute("scrolledOn", true);
+          });
+        case document.getElementById("heyo"):
+          setCanvasUp();
+          loop();
+        case document.getElementById("header_aboutMe"):
+          document.getElementById("header_aboutMe").setAttribute("scrolledOn", true);
+          break;
+        case document.getElementById("music"):
+          Array(...document.getElementsByClassName("musicLink")).forEach((link) => {
+            link.setAttribute("scrolledOn", true);
+          });
+        case musicHeading:
+          musicHeading.setAttribute("scrolledOn", true);
+          setTimeout(function () {
+            musicHeading.style.color = "rgb(22, 31, 45)";
+            musicHeading.style.textShadow = "none";
+          }, 750);
+
+          break;
+      }
+    } else {
+      switch (entry.target) {
+        case document.getElementById("home"):
+          Array(...document.getElementsByClassName("homeLink")).forEach((link) => {
+            link.setAttribute("scrolledOn", false);
+          });
+          break;
+        case document.getElementById("about-me"):
+          Array(...document.getElementsByClassName("aboutMeLink")).forEach((link) => {
+            link.setAttribute("scrolledOn", false);
+          });
+        case document.getElementById("heyo"):
+          if (ctx != undefined || ctx != null) {
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+          }
+        case document.getElementById("header_aboutMe"):
+          document.getElementById("header_aboutMe").setAttribute("scrolledOn", false);
+          break;
+        case document.getElementById("music"):
+          Array(...document.getElementsByClassName("musicLink")).forEach((link) => {
+            link.setAttribute("scrolledOn", false);
+          });
+        case musicHeading:
+          musicHeading.setAttribute("scrolledOn", false);
+          musicHeading.style.animation = "";
+          musicHeading.style.color = "#f4f4f4";
+          musicHeading.style.textShadow = "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black";
+          break;
+      }
     }
   });
 };
 
 let observer = new IntersectionObserver(callBack, options);
-var h1 = Array(...document.getElementsByClassName("music"))[0].children[0].children[0];
-let observer1 = new IntersectionObserver(function (entries, observer) {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      setTimeout(function () {
-        h1.style.color = "rgb(22, 31, 45)";
-        h1.style.textShadow = "none";
-      }, 500);
-    } else {
-      h1.style.animation = "";
-      h1.style.color = "#f4f4f4";
-      h1.style.textShadow = "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black";
-    }
-  });
-}, options);
 observer.observe(document.getElementById("heyo"));
-observer1.observe(h1);
+observer.observe(musicHeading);
+observer.observe(document.getElementById("header_aboutMe"));
+observer.observe(document.getElementById("home"));
+observer.observe(document.getElementById("music"));
+observer.observe(document.getElementById("about-me"));
 //if screen size changes
 window.onresize = function () {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -143,10 +186,10 @@ filters.children[1].setAttribute("status", "not-selected");
 
 Array(...filters.children).forEach((span) => {
   span.addEventListener("click", function () {
-    if (Array(...filters.children).indexOf(span) == 0) {
+    if (Array(...filters.children).indexOf(span) == 1) {
       filters.children[1].setAttribute("status", "selected");
       filters.children[0].setAttribute("status", "not-selected");
-    } else if (Array(...filters.children).indexOf(span) == 1) {
+    } else if (Array(...filters.children).indexOf(span) == 0) {
       filters.children[1].setAttribute("status", "not-selected");
       filters.children[0].setAttribute("status", "selected");
     }
@@ -156,7 +199,7 @@ Array(...filters.children).forEach((span) => {
 
 inputQueries.addEventListener("change", function () {
   displayVids(musicList);
-}); 
+});
 
 inputQueries.oninput = () => {
   imposeMinMax(inputQueries);
@@ -263,7 +306,7 @@ function initializeFlkty() {
 }
 function displayVids(list) {
   checkAndDeleteOldCells();
-  if (filters.children[1].getAttribute("status") === "selected") {
+  if (filters.children[0].getAttribute("status") === "selected") {
     createVids(Number(inputQueries.value), orderByDate(list), list);
   } else {
     createVids(Number(inputQueries.value), orderByPopularity(list), list);
