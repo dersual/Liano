@@ -80,7 +80,7 @@ https://flickity.metafizzy.co
 /* ---- previous/next buttons ---- */
 
 .flickity-prev-next-button {
-  top: 50vh;
+  top: min(50vh, 50%);
   width: 34px;
   height: 44px;
   border-radius: 20%;
@@ -134,7 +134,7 @@ https://flickity.metafizzy.co
   width: 10px;
   height: 10px;
   margin: 0 8px;
-  background: #333;
+  background: #161f2d;
   border-radius: 50%;
   opacity: 0.25;
   cursor: pointer;

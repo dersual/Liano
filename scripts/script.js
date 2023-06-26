@@ -91,18 +91,17 @@ let callBack = (entries, observer) => {
         case document.getElementById("about-me"):
           Array(...document.getElementsByClassName("aboutMeLink")).forEach((link) => {
             link.setAttribute("scrolledOn", true);
-          });
+          }); 
+          document.getElementById("header_aboutMe").setAttribute("scrolledOn", true);
         case document.getElementById("heyo"):
           setCanvasUp();
-          loop();
-        case document.getElementById("header_aboutMe"):
-          document.getElementById("header_aboutMe").setAttribute("scrolledOn", true);
+          loop(); 
           break;
         case document.getElementById("music"):
           Array(...document.getElementsByClassName("musicLink")).forEach((link) => {
             link.setAttribute("scrolledOn", true);
-          });
-        case musicHeading:
+          }); 
+        case musicHeading: 
           musicHeading.setAttribute("scrolledOn", true);
           setTimeout(function () {
             musicHeading.style.color = "rgb(22, 31, 45)";
@@ -122,18 +121,17 @@ let callBack = (entries, observer) => {
           Array(...document.getElementsByClassName("aboutMeLink")).forEach((link) => {
             link.setAttribute("scrolledOn", false);
           });
+          document.getElementById("header_aboutMe").setAttribute("scrolledOn", false);
         case document.getElementById("heyo"):
           if (ctx != undefined || ctx != null) {
             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-          }
-        case document.getElementById("header_aboutMe"):
-          document.getElementById("header_aboutMe").setAttribute("scrolledOn", false);
+          } 
           break;
         case document.getElementById("music"):
           Array(...document.getElementsByClassName("musicLink")).forEach((link) => {
             link.setAttribute("scrolledOn", false);
-          });
-        case musicHeading:
+          }); 
+        case musicHeading: 
           musicHeading.setAttribute("scrolledOn", false);
           musicHeading.style.animation = "";
           musicHeading.style.color = "#f4f4f4";
@@ -147,7 +145,6 @@ let callBack = (entries, observer) => {
 let observer = new IntersectionObserver(callBack, options);
 observer.observe(document.getElementById("heyo"));
 observer.observe(musicHeading);
-observer.observe(document.getElementById("header_aboutMe"));
 observer.observe(document.getElementById("home"));
 observer.observe(document.getElementById("music"));
 observer.observe(document.getElementById("about-me"));

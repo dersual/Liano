@@ -100,9 +100,10 @@ a.hover-underline-animation::after {
   transform: scaleX(0);
 }
 
-a.hover-underline-animation:hover::after, a.hover-underline-animation[scrolledOn = "true"]::after {
+a.hover-underline-animation:hover::after,
+a.hover-underline-animation[scrolledOn="true"]::after {
   transform: scaleX(1);
-} 
+}
 
 h1.hover-underline-animation::after {
   opacity: 0.5;
@@ -110,17 +111,17 @@ h1.hover-underline-animation::after {
   z-index: 2;
   height: 15%;
   transform-origin: bottom;
-  transform: scaleY(0); 
+  transform: scaleY(0);
   transition: transform 1s ease-out;
-}  
+}
 
 h1.hover-underline-animation[scrolledOn="true"]::after {
   transform: scaleY(1.2);
-}  
+}
 
 /*text-wrap: balance is currently not supported on all browsers */
 h1,
-h2, p {
+h2 {
   text-wrap: balance;
 }
 
@@ -421,7 +422,7 @@ Home
   height: 100%;
 }
 
-.social-buttons:hover {
+#home .social-buttons:hover {
   height: 90px;
   width: 90px;
   line-height: 90px;
@@ -453,7 +454,7 @@ Home
     width: 60vw;
   }
 
-  .social-buttons {
+  .home .social-buttons {
     font-size: 2em;
   }
 }
@@ -463,14 +464,6 @@ About Me
 */
 
 .about-me {
-  /*background: rgb(255,0,232);
-background: linear-gradient(239deg, rgba(255,0,232,1) 0%, rgba(0,211,255,1) 100%);   
-background: linear-gradient(141deg, rgba(22,31,45,1) 0%, rgba(242,242,242,1) 100%);  
-background: rgb(124,162,196);
-background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 100%); 
-*/
-  /*background: rgb(22, 31, 45); 
-  background: linear-gradient(141deg, rgba(22, 31, 45, 1) 0%, #9da1a4 100%); */
   box-shadow: inset 0 0 0 2000px rgba(22, 31, 45, 0.5);
   background-image: url("../Images/aboutMe.jpeg");
   background-size: cover;
@@ -511,7 +504,7 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
 }
 
 #header_aboutMe {
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 5vw, 4rem);
   text-align: left;
   margin-bottom: 10px;
   width: fit-content;
@@ -521,12 +514,12 @@ background: linear-gradient(156deg, rgba(124,162,196,1) 0%, rgba(157,161,164,1) 
   background-color: var(--light-color);
 }
 
-.about-me > div > div > p {
+.about-me p {
   font-size: clamp(0.75em, 1.25vw, 1em);
   font-weight: 300;
 }
 
-.about-me > div > div > p:last-child {
+.about-me p:last-child {
   margin-bottom: 0px;
 }
 
@@ -712,4 +705,86 @@ div:has(#queriesInput) {
 
 .description[toggled="true"] {
   animation: expandHeight 1s ease 0s 1 normal forwards;
+}
+
+/* 
+Footer 
+=======================================================================
+*/
+footer {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 50%);
+  font-family: "Open Sans", sans-serif;
+  padding: 1rem 2rem;
+  gap: 10px 0;
+  justify-items: center;
+  align-items: center;
+
+  & .footer_image {
+    max-width: 100%;
+    grid-column: span 2;
+    grid-row: auto;
+    align-self: center;
+    height: 180px; 
+    border-bottom: var(--gray-color) 1px solid;
+  }
+  & .footer_container {
+    grid-area: span 1 / span 2;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    gap: max(2vw, 8px);
+
+    & a {
+      color: var(--light-color);
+      text-decoration: none;
+      list-style: none;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    & .social-buttons {
+      color: var(--button-color);
+      background-color: var(--light-color);
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+    }
+
+    & .social-buttons:hover {
+      background-color: var(--button-color);
+      color: var(--light-color);
+    }
+  }
+
+  #footer_links a {
+    font-size: clamp(1rem, 1.2vw, 1.5rem);
+  }
+
+  #footer_links a::after {
+    background-color: var(--light-color);
+  }
+  @media screen and (max-width: 425px) {
+    & {
+      align-items: start;
+      grid-template-columns: repeat(auto-fill, 50%);
+    }
+
+    & #footer_links {
+      flex-direction: column;
+    }
+    .footer_container {
+      & .social-buttons {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 1.5rem;
+      }
+    }
+  }
 }

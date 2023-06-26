@@ -40,15 +40,19 @@
     <!--=================== Navigation ===================-->
 
     <nav class="home-nav">
-      <a class="homeLink hover-underline-animation" href="#home">Home</a>
-      <a class="aboutMeLink hover-underline-animation" href="#about-me">About Me</a>
-      <a class="musicLink hover-underline-animation" href="#music">Music</a>
+      <a aria-label="Home Link" class="homeLink hover-underline-animation" href="#home">Home</a>
+      <a aria="About Me Link" class="aboutMeLink hover-underline-animation" href="#about-me"
+        >About Me</a
+      >
+      <a aria="Music Link" class="musicLink hover-underline-animation" href="#music">Music</a>
     </nav>
 
     <nav class="nav">
-      <a class="homeLink hover-underline-animation" href="#home">Home</a>
-      <a class="aboutMeLink hover-underline-animation" href="#about-me">About Me</a>
-      <a class="musicLink hover-underline-animation" href="#music">Music</a>
+      <a aria-label="Home Link" class="homeLink hover-underline-animation" href="#home">Home</a>
+      <a aria="About Me Link" class="aboutMeLink hover-underline-animation" href="#about-me"
+        >About Me</a
+      >
+      <a aria="Music Link" class="musicLink hover-underline-animation" href="#music">Music</a>
     </nav>
 
     <nav class="mobile-nav">
@@ -59,9 +63,11 @@
         <span></span>
       </div>
       <div class="mobile-nav-screen">
-        <a class="homeLink hover-underline-animation" href="#home">Home</a>
-        <a class="aboutMeLink hover-underline-animation" href="#about-me">About Me</a>
-        <a class="musicLink hover-underline-animation" href="#music">Music</a>
+        <a aria-label="Home Link" class="homeLink hover-underline-animation" href="#home">Home</a>
+        <a aria="About Me Link" class="aboutMeLink hover-underline-animation" href="#about-me"
+          >About Me</a
+        >
+        <a aria="Music Link" class="musicLink hover-underline-animation" href="#music">Music</a>
       </div>
     </nav>
 
@@ -90,7 +96,7 @@
           <p>
             Everywhere I go, I hear the words of music. So I write them down in my diary. <br />
             <span class="end-quote"
-              >-<img class="LianoName" alt="LianoQuote" src="Images/name1.png" />
+              >-<img class="LianoName" alt="Liano" src="Images/name1.png" />
             </span>
           </p>
         </div>
@@ -163,7 +169,33 @@
       </section>
     </main>
 
-    <footer></footer>
+    <!--=================== Footer ===================-->
+    <footer class="footer">
+      <img class="LianoName footer_image" alt="Liano" src="Images/name2.png" />
+        <div class="footer_container" id="footer_socials">
+          <a
+            href="https://www.youtube.com/channel/UCqI8paXTIWivf5Fs3j_Uhxg"
+            class="social-buttons"
+            aria-label="Liano's Youtube Channel"
+            ><i class="fa-brands fa-youtube fa-vw"></i
+          ></a>
+          <a
+            href="https://www.instagram.com/liano_music/"
+            class="social-buttons"
+            aria-label="Liano's Instagram"
+            ><i class="fa-brands fa-instagram fa-vw"></i
+          ></a>
+        </div>
+     
+      <div class="footer_container" id="footer_links">
+        <a aria-label="Home Link" class="hover-underline-animation" href="#home">Home</a>
+        <a aria-label="About Me Link" class="hover-underline-animation" href="#about-me"
+          >About Me</a
+        >
+        <a aria-label="Music Link" class="hover-underline-animation" href="#music">My Music</a>
+      </div>
+    </footer>
+
     <!--=================== Templates ===================-->
     <template class="template_VideoFormat">
       <div class="video_container">
